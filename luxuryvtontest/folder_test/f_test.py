@@ -1,4 +1,4 @@
-import test2.test_import
+from .test2 import test_import
 def f_testprint():
     print("This is my test function")
-    test2.test_import()
+    test_import()
