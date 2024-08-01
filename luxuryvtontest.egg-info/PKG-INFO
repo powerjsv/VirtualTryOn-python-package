@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: luxuryvtontest
+Version: 0.0.11
+Summary: This is a test for my python package upload to pypi
+Home-page: https://github.com/powerjsv/jsv_package_test
+Author: powerjsv
+Author-email: powerjsv12@gmail.com
+Keywords: vton,powerjsv,toy project,pypi
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+Requires-Dist: tqdm
+Requires-Dist: pandas
+Requires-Dist: scikit-learn
