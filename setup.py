@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="luxuryvtontest",
-    version="0.0.13",
+    version="0.0.14",
     description="This is a test for my python package upload to pypi",
     author="powerjsv",
     author_email="powerjsv12@gmail.com",
@@ -21,7 +21,6 @@ setup(
         "scipy==1.11.1",
         "opencv-python",
     ],
-    extras_require={"torch": ["torch==2.0.1+cu118", "torchvision==0.15.2+cu118"]},
     packages=find_packages(exclude=[]),
     keywords=["vton", "powerjsv", "toy project", "pypi"],
     python_requires=">=3.10",
