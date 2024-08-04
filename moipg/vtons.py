@@ -1,7 +1,7 @@
 import subprocess
 import os
 from huggingface_hub import hf_hub_download
-from IDM_VTON.gradio_demo import apple
+from .IDM_VTON.gradio_demo import apple
 
 class IDMVTON():
     def __init__(self):
