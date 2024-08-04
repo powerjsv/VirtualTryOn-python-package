@@ -164,7 +164,7 @@ def start_tryon(human_img_path, garm_img_path, garment_des, is_checked, is_check
     human_img_arg = _apply_exif_orientation(human_img.resize((384, 512)))
     human_img_arg = convert_PIL_to_numpy(human_img_arg, format="BGR")
 
-    args = apply_net.create_argument_parser().parse_args(('show', './configs/densepose_rcnn_R_50_FPN_s1x.yaml', './ckpt/densepose/model_final_162be9.pkl', 'dp_segm', '-v', '--opts', 'MODEL.DEVICE', 'cuda'))
+    args = apply_net.create_argument_parser().parse_args(('show', './IDM-VTON/configs/densepose_rcnn_R_50_FPN_s1x.yaml', './IDM-VTON/ckpt/densepose/model_final_162be9.pkl', 'dp_segm', '-v', '--opts', 'MODEL.DEVICE', 'cuda'))
     pose_img = args.func(args, human_img_arg)
     pose_img = pose_img[:, :, ::-1]
     pose_img = Image.fromarray(pose_img).resize((768, 1024))

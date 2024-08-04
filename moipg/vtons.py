@@ -5,9 +5,9 @@ from huggingface_hub import hf_hub_download
 
 class IDMVTON():
     def __init__(self):
-        folder_path = './IDM-VTON/ckpt/densepose'
+        folder_path = './IDM-VTON/ckpt/densepose/model_final_162be9.pkl'
 
-        if os.path.exists(folder_path) and not os.listdir(folder_path):
+        if not os.path.exists(folder_path):
             repo_id = "yisol/IDM-VTON"
             save_path = "./IDM-VTON/ckpt"
 
@@ -25,8 +25,9 @@ class IDMVTON():
         # idm_vton_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'IDM-VTON','gradio_demo'))
         # apple_script_path = os.path.join(idm_vton_path, 'apple.py')
 
-        apple_script_path = os.getcwd()
-
+        apple_script_path = './IDM-VTON/gradio_demo/apple.py'
+        # print(apple_script_path)
+        
         # apple.py 파일 실행 및 인자 전달
         subprocess.run([
             'python', apple_script_path,
