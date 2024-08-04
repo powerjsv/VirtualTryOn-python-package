@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="moipg",
-    version="0.0.2",
+    version="0.0.3",
     description="This is a test for my python package upload to pypi",
     author="powerjsv",
     author_email="powerjsv12@gmail.com",
