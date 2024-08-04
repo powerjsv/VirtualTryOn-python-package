@@ -20,12 +20,13 @@ class IDMVTON():
             print("Checkpoints already exist.")
             print()
 
-
     def run_start_tryon(self, human_img_dest, garm_img_dest, garment_des):
         # IDM_VTON 폴더 경로와 apple.py 파일 경로 설정
-        idm_vton_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'IDM-VTON','gradio_demo'))
-        apple_script_path = os.path.join(idm_vton_path, 'apple.py')
-        
+        # idm_vton_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'IDM-VTON','gradio_demo'))
+        # apple_script_path = os.path.join(idm_vton_path, 'apple.py')
+
+        apple_script_path = os.getcwd()
+
         # apple.py 파일 실행 및 인자 전달
         subprocess.run([
             'python', apple_script_path,
@@ -33,7 +34,6 @@ class IDMVTON():
             '--garm_img_path', garm_img_dest,
             '--garment_des', garment_des
         ])
-
 
 
 """
