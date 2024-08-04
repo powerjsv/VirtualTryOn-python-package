@@ -25,9 +25,9 @@ from diffusers import DDPMScheduler, AutoencoderKL
 from typing import List
 import torch
 import numpy as np
-from .utils_mask import get_mask_location
+from utils_mask import get_mask_location
 from torchvision import transforms
-from .apply_net import create_argument_parser
+import apply_net
 from preprocess.humanparsing.run_parsing import Parsing
 from preprocess.openpose.run_openpose import OpenPose
 from detectron2.data.detection_utils import convert_PIL_to_numpy, _apply_exif_orientation
@@ -164,7 +164,7 @@ def start_tryon(human_img_path, garm_img_path, garment_des, is_checked, is_check
     human_img_arg = _apply_exif_orientation(human_img.resize((384, 512)))
     human_img_arg = convert_PIL_to_numpy(human_img_arg, format="BGR")
 
-    args = create_argument_parser().parse_args(('show', './IDM_VTON/configs/densepose_rcnn_R_50_FPN_s1x.yaml', './IDM_VTON/ckpt/densepose/model_final_162be9.pkl', 'dp_segm', '-v', '--opts', 'MODEL.DEVICE', 'cuda'))
+    args = apply_net.create_argument_parser().parse_args(('show', './IDM_VTON/configs/densepose_rcnn_R_50_FPN_s1x.yaml', './IDM_VTON/ckpt/densepose/model_final_162be9.pkl', 'dp_segm', '-v', '--opts', 'MODEL.DEVICE', 'cuda'))
     pose_img = args.func(args, human_img_arg)
     pose_img = pose_img[:, :, ::-1]
     pose_img = Image.fromarray(pose_img).resize((768, 1024))
@@ -236,7 +236,8 @@ def start_tryon(human_img_path, garm_img_path, garment_des, is_checked, is_check
         result_img = images[0]
     result_img.save(output_path, "PNG")
     print(f"합성된 이미지를 {output_path}에 저장했습니다.")
-    return result_img, mask_gray
+    # return result_img, mask_gray
+    return result_img
 
 def main():
     parser = argparse.ArgumentParser(description="Run the try-on pipeline")
@@ -247,7 +248,7 @@ def main():
     parser.add_argument('--is_checked_crop', type=bool, default=False, help="Crop the human image")
     parser.add_argument('--denoise_steps', type=int, default=30, help="Number of denoise steps")
     parser.add_argument('--seed', type=int, default=42, help="Random seed")
-    parser.add_argument('--output_path', type=str, default='../../output.png', help="Path to save the output image")
+    parser.add_argument('--output_path', type=str, default='../output.png', help="Path to save the output image")
 
     args = parser.parse_args()
 

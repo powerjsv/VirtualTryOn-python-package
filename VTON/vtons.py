@@ -1,13 +1,13 @@
 import subprocess
 import os
 from huggingface_hub import hf_hub_download
-from .IDM_VTON.gradio_demo import apple
+# from .IDM_VTON.gradio_demo import apple
 
 class IDMVTON():
     def __init__(self):
-        folder_path = './IDM_VTON/ckpt/densepose'
+        folder_path = './IDM_VTON/ckpt/densepose/model_final_162be9.pkl'
 
-        if os.path.exists(folder_path) and not os.listdir(folder_path):
+        if not os.path.exists(folder_path):
             repo_id = "yisol/IDM-VTON"
             save_path = "./IDM_VTON/ckpt"
 
@@ -35,6 +35,8 @@ class IDMVTON():
             '--garm_img_path', garm_img_dest,
             '--garment_des', garment_des
         ])
+
+        
 
 
 """
