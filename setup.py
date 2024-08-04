@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="luxuryvtontest",
-    version="0.0.18",
+    name="moipg",
+    version="0.0.2",
     description="This is a test for my python package upload to pypi",
     author="powerjsv",
     author_email="powerjsv12@gmail.com",

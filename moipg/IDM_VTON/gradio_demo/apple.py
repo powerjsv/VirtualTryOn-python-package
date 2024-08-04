@@ -48,7 +48,7 @@ def pil_to_binary_mask(pil_image, threshold=0):
     output_mask = Image.fromarray(mask)
     return output_mask
 
-base_path = 'yisol/IDM-VTON'
+base_path = 'yisol/IDM_VTON'
 example_path = os.path.join(os.path.dirname(__file__), 'example')
 
 unet = UNet2DConditionModel.from_pretrained(
@@ -253,8 +253,8 @@ def main():
 
 # 현재 스크립트 파일 기준으로 경로 계산
     script_directory = os.path.dirname(os.path.abspath(__file__))
-    example_human_dir = os.path.join(script_directory, 'IDM-VTON/gradio_demo/example', 'human')
-    example_cloth_dir = os.path.join(script_directory, 'IDM-VTON/gradio_demo/example', 'cloth')
+    example_human_dir = os.path.join(script_directory, 'IDM_VTON/gradio_demo/example', 'human')
+    example_cloth_dir = os.path.join(script_directory, 'IDM_VTON/gradio_demo/example', 'cloth')
 
     # 최종 대상 경로
     human_img_dest = os.path.join(example_human_dir, os.path.basename(args.human_img_path))
