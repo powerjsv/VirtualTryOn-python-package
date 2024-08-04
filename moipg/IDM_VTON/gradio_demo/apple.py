@@ -48,7 +48,7 @@ def pil_to_binary_mask(pil_image, threshold=0):
     output_mask = Image.fromarray(mask)
     return output_mask
 
-base_path = 'yisol/IDM-VTON'
+base_path = 'yisol/IDM_VTON'
 example_path = os.path.join(os.path.dirname(__file__), 'example')
 
 unet = UNet2DConditionModel.from_pretrained(
@@ -164,7 +164,7 @@ def start_tryon(human_img_path, garm_img_path, garment_des, is_checked, is_check
     human_img_arg = _apply_exif_orientation(human_img.resize((384, 512)))
     human_img_arg = convert_PIL_to_numpy(human_img_arg, format="BGR")
 
-    args = apply_net.create_argument_parser().parse_args(('show', './IDM-VTON/configs/densepose_rcnn_R_50_FPN_s1x.yaml', './IDM-VTON/ckpt/densepose/model_final_162be9.pkl', 'dp_segm', '-v', '--opts', 'MODEL.DEVICE', 'cuda'))
+    args = apply_net.create_argument_parser().parse_args(('show', './IDM_VTON/configs/densepose_rcnn_R_50_FPN_s1x.yaml', './IDM_VTON/ckpt/densepose/model_final_162be9.pkl', 'dp_segm', '-v', '--opts', 'MODEL.DEVICE', 'cuda'))
     pose_img = args.func(args, human_img_arg)
     pose_img = pose_img[:, :, ::-1]
     pose_img = Image.fromarray(pose_img).resize((768, 1024))
@@ -253,8 +253,8 @@ def main():
 
 # 현재 스크립트 파일 기준으로 경로 계산
     script_directory = os.path.dirname(os.path.abspath(__file__))
-    example_human_dir = os.path.join(script_directory, 'IDM-VTON/gradio_demo/example', 'human')
-    example_cloth_dir = os.path.join(script_directory, 'IDM-VTON/gradio_demo/example', 'cloth')
+    example_human_dir = os.path.join(script_directory, 'IDM_VTON/gradio_demo/example', 'human')
+    example_cloth_dir = os.path.join(script_directory, 'IDM_VTON/gradio_demo/example', 'cloth')
 
     # 최종 대상 경로
     human_img_dest = os.path.join(example_human_dir, os.path.basename(args.human_img_path))
