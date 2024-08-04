@@ -2,6 +2,7 @@ import subprocess
 import os
 
 
+
 class idmvton():
     def __init__(self):
         folder_path = '../IDM-VTON/ckpt/densepose'
