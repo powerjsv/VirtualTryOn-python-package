@@ -25,7 +25,7 @@ from diffusers import DDPMScheduler, AutoencoderKL
 from typing import List
 import torch
 import numpy as np
-from utils_mask import get_mask_location
+from .utils_mask import get_mask_location
 from torchvision import transforms
 import apply_net
 from preprocess.humanparsing.run_parsing import Parsing
@@ -48,7 +48,7 @@ def pil_to_binary_mask(pil_image, threshold=0):
     output_mask = Image.fromarray(mask)
     return output_mask
 
-base_path = 'yisol/IDM_VTON'
+base_path = 'yisol/IDM-VTON'
 example_path = os.path.join(os.path.dirname(__file__), 'example')
 
 unet = UNet2DConditionModel.from_pretrained(
