@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="VTON",
-    version="0.0.2",
+    name="nstm",
+    version="0.0.1",
     description="This is a test for my python package upload to pypi",
     author="powerjsv",
     author_email="powerjsv12@gmail.com",
@@ -17,6 +17,8 @@ setup(
         "bitsandbytes==0.39.0",
         "scipy==1.11.1",
         "opencv-python",
+        "transformers",
+        "huggingface_hub"
     ],
     packages=find_packages(exclude=[]),
     keywords=["vton", "powerjsv", "toy project", "pypi"],
