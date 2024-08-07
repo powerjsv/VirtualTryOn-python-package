@@ -1,1 +1,1 @@
-include VTON/IDM_VTON/*
+recursive-include nstm/config *

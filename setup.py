@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="nstm",
-    version="0.0.1",
+    version="0.0.12",
     description="This is a test for my python package upload to pypi",
     author="powerjsv",
     author_email="powerjsv12@gmail.com",
@@ -18,12 +18,19 @@ setup(
         "scipy==1.11.1",
         "opencv-python",
         "transformers",
-        "huggingface_hub"
+        "huggingface_hub",
+        "fvcore",
+        "omegaconf",
+        "av",
+        "onnxruntime"
     ],
     packages=find_packages(exclude=[]),
+    include_package_data=True,
     keywords=["vton", "powerjsv", "toy project", "pypi"],
     python_requires=">=3.10",
-    package_data={},
+    package_data={
+        'nstm': ['configs/**/*']
+    },
     zip_safe=False,
     classifiers=[
         "Programming Language :: Python :: 3.10",

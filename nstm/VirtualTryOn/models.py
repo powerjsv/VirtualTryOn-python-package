@@ -1,13 +1,23 @@
 import sys
 import os
 import argparse
+# idm_vton_path = os.path.abspath(
+#     os.path.join(
+#         os.path.dirname(__file__), "../configs/densepose_rcnn_R_50_FPN_s1x.yaml"
+#     )
+# )
+# print(idm_vton_path)
+# exit()
 from transformers import AutoTokenizer
 from huggingface_hub import hf_hub_download
 
 # IDM_VTON 폴더 경로 추가
 idm_vton_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# /nstm
 sys.path.append(idm_vton_path)
-
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
+# /VirtualTryOn
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "./detectron")))
 
 import shutil
 import os
@@ -16,7 +26,7 @@ from PIL import Image
 from src.tryon_pipeline import StableDiffusionXLInpaintPipeline as TryonPipeline
 from src.unet_hacked_garmnet import UNet2DConditionModel as UNet2DConditionModel_ref
 from src.unet_hacked_tryon import UNet2DConditionModel
-#src __init__ done
+# src __init__ done
 from transformers import (
     CLIPImageProcessor,
     CLIPVisionModelWithProjection,
@@ -51,20 +61,19 @@ def pil_to_binary_mask(pil_image, threshold=0):
     return output_mask
 
 
-
-
-
-
 class IDMVTON():
     def __init__(self):
         self.device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
         # download ckpt
-        folder_path = '../ckpt/densepose/model_final_162be9.pkl'
+        folder_path = '/ckpt/densepose/model_final_162be9.pkl'
 
         if not os.path.exists(folder_path):
             repo_id = "yisol/IDM-VTON"
-            save_path = "../ckpt"
+            # save_path = "/ckpt"
+            save_path = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "..", "ckpt")
+            )
 
             # Download checkpoints to run the vton model
             hf_hub_download(repo_id=repo_id, filename="densepose/model_final_162be9.pkl", local_dir=save_path)
@@ -76,7 +85,6 @@ class IDMVTON():
         print()
         # ----------------------------------------------------------
 
-        
         base_path = 'yisol/IDM-VTON'
         example_path = os.path.join(os.path.dirname(__file__), 'example')
 
@@ -126,11 +134,7 @@ class IDMVTON():
             torch_dtype=torch.float16,
         )
 
-
-        # 
-
-
-
+        #
 
         self.parsing_model = Parsing(0)
         self.openpose_model = OpenPose(0)
@@ -163,10 +167,9 @@ class IDMVTON():
         )
         self.pipe.unet_encoder = self.UNet_Encoder
 
-
     def start_tryon(self, human_img_path, garm_img_path, garment_des, is_checked=True, is_checked_crop=False, denoise_steps=30, seed=42, output_path="../output_images/output.png"):
         # device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
-        
+
         # 현재 스크립트 파일 기준으로 경로 계산
         script_directory = os.path.dirname(os.path.abspath(__file__))
         example_human_dir = os.path.join(script_directory, './example', 'human')
@@ -185,7 +188,7 @@ class IDMVTON():
         shutil.copy2(garm_img_path, garm_img_dest)
 
         # ----------------------------------------------------------------
-        
+
         self.openpose_model.preprocessor.body_estimation.model.to(self.device)
         self.pipe.to(self.device)
         self.pipe.unet_encoder.to(self.device)
@@ -221,7 +224,17 @@ class IDMVTON():
         human_img_arg = _apply_exif_orientation(human_img.resize((384, 512)))
         human_img_arg = convert_PIL_to_numpy(human_img_arg, format="BGR")
 
-        args = apply_net.create_argument_parser().parse_args(('show', '../configs/densepose_rcnn_R_50_FPN_s1x.yaml', '../ckpt/densepose/model_final_162be9.pkl', 'dp_segm', '-v', '--opts', 'MODEL.DEVICE', 'cuda'))
+        yaml_path = os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__), "../configs/densepose_rcnn_R_50_FPN_s1x.yaml"
+            )
+        )
+        pkl_path = os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__), "../ckpt/densepose/model_final_162be9.pkl"
+            )
+        )
+        args = apply_net.create_argument_parser().parse_args(('show', yaml_path, pkl_path, 'dp_segm', '-v', '--opts', 'MODEL.DEVICE', 'cuda'))
         pose_img = args.func(args, human_img_arg)
         pose_img = pose_img[:, :, ::-1]
         pose_img = Image.fromarray(pose_img).resize((768, 1024))
@@ -291,34 +304,11 @@ class IDMVTON():
             result_img = human_img_orig
         else:
             result_img = images[0]
-        
+
         result_img.save(output_path, "PNG")
         print(f"합성된 이미지를 {output_path}에 저장했습니다.")
         # return result_img, mask_gray
         return result_img
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def main():
