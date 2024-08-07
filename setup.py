@@ -1,9 +1,13 @@
 from setuptools import setup, find_packages
 
+with open('README.md', encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(
     name="nstm",
     version="0.0.12",
-    description="This is a test for my python package upload to pypi",
+    long_description = long_description,
+    long_description_content_type='text/markdown',
     author="powerjsv",
     author_email="powerjsv12@gmail.com",
     url="https://github.com/powerjsv/jsv_package_test",
