@@ -4,8 +4,8 @@ with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name="nstm",
-    version="0.0.12",
+    name="VtPy",
+    version="1.0.1",
     long_description = long_description,
     long_description_content_type='text/markdown',
     author="powerjsv",
